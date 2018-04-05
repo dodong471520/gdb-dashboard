@@ -1526,11 +1526,17 @@ class Vim(Dashboard.Module):
         out = []
         symline = gdb.decode_line()[1][0]
         symtab = symline.symtab
-        cmd = "vim --servername gdb --remote-send \":e +" + str(symline.line) + " " + symtab.fullname() + "<cr>\""
-        os.system(cmd)
+        cmd1 = "vim --servername gdb --remote-send \":sil e! +" + str(symline.line) + " " + symtab.fullname() + "<cr><cr>"
+                # + ":match Search /\%" + str(symline.line) + "l/<cr>"
+        cmd2 = "\""
+        cmd = cmd1 + cmd2
+        fd = os.popen(cmd)
+        err = fd.read()
+        fd.close()
         # out.append(str(symline.line))
         # out.append(symtab.fullname())
-        # out.append(cmd)
+        out.append(cmd)
+        out.append(err)
         return out
 
     def attributes(self):
