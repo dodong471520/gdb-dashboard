@@ -1516,6 +1516,26 @@ class Expressions(Dashboard.Module):
             }
         }
 
+class Vim(Dashboard.Module):
+    """List the last entries of the value history."""
+
+    def label(self):
+        return 'Vim'
+
+    def lines(self, term_width, style_changed):
+        out = []
+        symline = gdb.decode_line()[1][0]
+        symtab = symline.symtab
+        cmd = "vim --servername gdb --remote-send \":e +" + str(symline.line) + " " + symtab.fullname() + "<cr>\""
+        os.system(cmd)
+        # out.append(str(symline.line))
+        # out.append(symtab.fullname())
+        # out.append(cmd)
+        return out
+
+    def attributes(self):
+        return {
+        }
 # XXX traceback line numbers in this Python block must be increased by 1
 end
 
