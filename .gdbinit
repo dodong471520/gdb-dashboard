@@ -394,8 +394,8 @@ class Dashboard(gdb.Command):
         # GDB overrides
         run('set pagination off')
         # enable and display if possible (program running)
-        dashboard.enable()
-        dashboard.redisplay()
+        # dashboard.enable()
+        # dashboard.redisplay()
 
     @staticmethod
     def get_term_width(fd=1):  # defaults to the main terminal
